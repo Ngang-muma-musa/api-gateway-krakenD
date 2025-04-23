@@ -41,8 +41,8 @@ services:
 
   api_gateway:
     container_name: api-gateway
-    image: krakend/krakend:latest
-    command: ["run", "-c", "/etc/krakend/krakend.json"]
+    image: devopsfaith/krakend:watch
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
     networks:
       - api_gateway_network
     volumes:
