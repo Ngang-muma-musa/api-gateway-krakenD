@@ -1,0 +1,30 @@
+services:
+  app:
+    container_name: user-management-service
+    image: nodered/node-red:latest
+    networks:
+      - api_gateway_network
+    environment:
+      - TZ=Europe/Amsterdam
+      - SERVER_NAME=server-1
+    volumes:
+      - ./user-management-service/nodered:/data
+    ports:
+      - 1880:1880
+    depends_on:
+      - api_gateway
+
+  api_gateway:
+    container_name: api-gateway
+    image: krakend/krakend:latest
+    command: ["run", "-c", "/etc/krakend/krakend.json"]
+    networks:
+      - api_gateway_network
+    volumes:
+      - ./api-gateway/krakend.json:/etc/krakend/krakend.json
+    ports:
+      - 8080:8080
+
+networks:
+  api_gateway_network:
+    driver: bridge
