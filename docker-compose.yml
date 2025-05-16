@@ -1,36 +1,16 @@
 services:
-  user-service:
-    container_name: user-service
+  api_service:
+    container_name: api-service
     image: nodered/node-red:latest
     networks:
       - api_gateway_network
     environment:
       - TZ=Europe/Amsterdam
-      - SERVER_NAME=user-service
+      - SERVER_NAME=api-service
     volumes:
-      - ./user-service/nodered:/data
+      - ./api-service/nodered:/data
     ports:
       - 1880:1880
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:1880"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    depends_on:
-      - api_gateway
-
-  auth_service:
-    container_name: auth-service
-    image: nodered/node-red:latest
-    networks:
-      - api_gateway_network
-    environment:
-      - TZ=Europe/Amsterdam
-      - SERVER_NAME=auth-service
-    volumes:
-      - ./auth-service/nodered:/data
-    ports:
-      - 1881:1880
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:1880"]
       interval: 10s
@@ -48,7 +28,7 @@ services:
     volumes:
       - ./api-gateway/krakend.json:/etc/krakend/krakend.json
     ports:
-      - 8080:8080
+      - 8000:8080
 
 networks:
   api_gateway_network:

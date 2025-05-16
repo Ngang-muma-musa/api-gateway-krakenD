@@ -1,0 +1,9 @@
+{
+    "$schema": "https://www.krakend.io/schema/v2.9/krakend.json",
+    "version": 3,
+    "name": "TestApiGateway",
+    "timeout":"300000ms"
+    "port":9000,
+    "endpoints": [],
+    "extra_config": {}
+}
